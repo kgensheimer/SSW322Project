@@ -6,6 +6,16 @@ public class User {
     private String name;
     private String email;
 
+    //Empty Constructor
+    public User(){}
+
+    /**
+     * Constructor
+     * @param username
+     * @param password
+     * @param name
+     * @param email
+     */
     public User(String username, String password, String name, String email){
         this.username = username;
         this.password = password;
