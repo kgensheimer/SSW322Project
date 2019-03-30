@@ -1,16 +1,16 @@
 package com.example.ssw_322_project;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 
-import com.example.ssw_322_project.Classes.User;
+import com.example.ssw_322_project.ClassesAndInterfaces.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         User loginInfo = dataSnapshot.child(user).getValue(User.class);
                         if(loginInfo.getPassword().equals(password)){
                             Toast.makeText(MainActivity.this, "Success.", Toast.LENGTH_SHORT).show();
+                            showHomePage();
                         }
                         else {
                             Toast.makeText(MainActivity.this, "Incorrect Username/Password.", Toast.LENGTH_SHORT).show();
@@ -143,9 +144,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         alertDialog.show();
+    }
 
-
-
+    private void showHomePage(){
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
     }
 
 

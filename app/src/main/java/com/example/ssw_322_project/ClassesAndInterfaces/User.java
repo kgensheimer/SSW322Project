@@ -1,4 +1,4 @@
-package com.example.ssw_322_project.Classes;
+package com.example.ssw_322_project.ClassesAndInterfaces;
 
 public class User {
     private String username;
