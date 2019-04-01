@@ -1,22 +1,20 @@
 package com.example.ssw_322_project.ClassesAndInterfaces;
 
-public class MultipleChoiceQuestion extends Question {
+public class RankingQuestion extends Question {
 
     private String option1;
     private String option2;
     private String option3;
     private String option4;
-    private int correctAnswerNumber;
+    private String[] correctOrder;
 
-    public MultipleChoiceQuestion(){}
-
-    public MultipleChoiceQuestion(String question, String option1, String option2, String option3, String option4, int correctAnswerNumber) {
+    public RankingQuestion(String question, String option1, String option2, String option3, String option4, String[] correctOrder){
         super.setQuestion(question);
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
-        this.correctAnswerNumber = correctAnswerNumber;
+        this.correctOrder = correctOrder;
     }
 
     public String getOption1() {
@@ -51,13 +49,12 @@ public class MultipleChoiceQuestion extends Question {
         this.option4 = option4;
     }
 
-    public int getCorrectAnswerNumber() {
-        return correctAnswerNumber;
+    public String[] getCorrectOrder(){
+        return this.getCorrectOrder();
     }
 
-    public void setCorrectAnswerNumber(int correctAnswer) {
-        this.correctAnswerNumber = correctAnswer;
+    public void setCorrectOrder(String[] correctOrder){
+        this.correctOrder = correctOrder;
     }
-
 
 }
