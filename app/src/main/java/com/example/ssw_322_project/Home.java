@@ -11,7 +11,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class Home extends AppCompatActivity {
 
-    Button btnModify, btnViewResults, btnTake;
+    Button btnModify, btnViewResults, btnTake, btnCreate;
     ScrollView tests, surveys;
 
     FirebaseDatabase database;
@@ -31,6 +31,7 @@ public class Home extends AppCompatActivity {
         btnModify = (Button)findViewById(R.id.btn_modify);
         btnViewResults = (Button)findViewById(R.id.btn_view_results);
         btnTake = (Button)findViewById(R.id.btn_take);
+        btnCreate = (Button)findViewById(R.id.btn_create);
 
     }
 }
