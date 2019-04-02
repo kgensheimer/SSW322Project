@@ -9,12 +9,12 @@ public class Survey implements Form {
     private int ID;
     private ArrayList<Question> questionArrayList = new ArrayList<Question>();
 
-
+    public Survey(){}
 
     @Override
-    public void addQuestion()
+    public void addQuestion(Question question)
     {
-
+        questionArrayList.add(question);
     }
 
     @Override
@@ -26,6 +26,10 @@ public class Survey implements Form {
     public void tabulateResults()
     {
 
+    }
+
+    public ArrayList<Question> getQuestionArrayList(){
+        return questionArrayList;
     }
 }
 
