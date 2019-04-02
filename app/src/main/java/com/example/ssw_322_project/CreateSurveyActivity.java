@@ -13,14 +13,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.util.List;
-
 public class CreateSurveyActivity extends AppCompatActivity {
 
     Button btnFinish, btnCreateQuestion, btnDeleteQuestion;
     Button btnMultipleChoice, btnRanking, btnShortAnswer, btnTrueFalse; //Choice of question type
 
     MaterialEditText editMCQuestionStr, editMCOption1Str, editMCOption2Str, editMCOption3Str, editMCOption4Str; //multiple choice text fields
+    MaterialEditText editTFQuestionStr;
+
 
     ListView questionList;
 
@@ -86,6 +86,13 @@ public class CreateSurveyActivity extends AppCompatActivity {
             }
         });
 
+        btnTrueFalse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createTrueFalse();
+            }
+        });
+
     }
 
     private void createMultipleChoice(){
@@ -121,5 +128,36 @@ public class CreateSurveyActivity extends AppCompatActivity {
         alertDialog.show();
 
     }
+
+    private void createTrueFalse(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateSurveyActivity.this);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View create_true_false_survey = inflater.inflate(R.layout.create_true_false_survey, null);
+
+        editTFQuestionStr = (MaterialEditText)create_true_false_survey.findViewById(R.id.tf_survey_question);
+
+        alertDialog.setView(create_true_false_survey);
+        alertDialog.setTitle("Enter Field for True/False Question:");
+
+        //Canceling TF question creation
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+
+    }
+
 
 }
