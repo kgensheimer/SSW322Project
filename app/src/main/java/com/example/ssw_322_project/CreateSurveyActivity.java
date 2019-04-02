@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
     Button btnFinish, btnCreateQuestion, btnDeleteQuestion;
     Button btnMultipleChoice, btnRanking, btnShortAnswer, btnTrueFalse; //Choice of question type
+
+    MaterialEditText editMCQuestionStr, editMCOption1Str, editMCOption2Str, editMCOption3Str, editMCOption4Str; //multiple choice text fields
+
     ListView questionList;
 
 
@@ -47,10 +51,11 @@ public class CreateSurveyActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void createQuestion(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateSurveyActivity.this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateSurveyActivity.this);
 
         LayoutInflater inflater = this.getLayoutInflater();
         View choose_question_type_layout = inflater.inflate(R.layout.question_type_choices, null);
@@ -73,8 +78,48 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
 
         alertDialog.show();
+
+        btnMultipleChoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createMultipleChoice();
+            }
+        });
+
     }
 
+    private void createMultipleChoice(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateSurveyActivity.this);
 
+        LayoutInflater inflater = this.getLayoutInflater();
+        View create_multiple_choice_survey = inflater.inflate(R.layout.create_multiple_choice_survey, null);
+
+        editMCQuestionStr = (MaterialEditText)create_multiple_choice_survey.findViewById(R.id.mc_survey_question);
+        editMCOption1Str = (MaterialEditText)create_multiple_choice_survey.findViewById(R.id.mc_survey_answer1);
+        editMCOption2Str = (MaterialEditText)create_multiple_choice_survey.findViewById(R.id.mc_survey_answer2);
+        editMCOption3Str = (MaterialEditText)create_multiple_choice_survey.findViewById(R.id.mc_survey_answer3);
+        editMCOption4Str = (MaterialEditText)create_multiple_choice_survey.findViewById(R.id.mc_survey_answer4);
+
+        alertDialog.setView(create_multiple_choice_survey);
+        alertDialog.setTitle("Enter Fields for Multiple Choice Question:");
+
+        //Canceling MC question creation
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+
+    }
 
 }
