@@ -21,6 +21,7 @@ public class CreateSurveyActivity extends AppCompatActivity {
     Button btnMultipleChoice, btnRanking, btnShortAnswer, btnTrueFalse; //Choice of question type
 
     MaterialEditText editMCQuestionStr, editMCOption1Str, editMCOption2Str, editMCOption3Str, editMCOption4Str; //multiple choice text fields
+    MaterialEditText editSAQuestionStr;
 
     ListView questionList;
 
@@ -86,6 +87,13 @@ public class CreateSurveyActivity extends AppCompatActivity {
             }
         });
 
+        btnShortAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createShortAnswer();
+            }
+        });
+
     }
 
     private void createMultipleChoice(){
@@ -120,6 +128,35 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
         alertDialog.show();
 
+    }
+
+    private void createShortAnswer(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateSurveyActivity.this);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View create_short_answer_survey = inflater.inflate(R.layout.create_short_answer_survey, null);
+
+        editSAQuestionStr = (MaterialEditText)create_short_answer_survey.findViewById(R.id.short_answer_survey_question);
+
+        alertDialog.setView(create_short_answer_survey);
+        alertDialog.setTitle("Enter Fields for Short Answer Question:");
+
+        //Canceling SA question creation
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
     }
 
 }
