@@ -1,0 +1,80 @@
+package com.example.ssw_322_project;
+
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
+
+public class CreateSurveyActivity extends AppCompatActivity {
+
+    Button btnFinish, btnCreateQuestion, btnDeleteQuestion;
+    Button btnMultipleChoice, btnRanking, btnShortAnswer, btnTrueFalse; //Choice of question type
+    ListView questionList;
+
+
+    FirebaseDatabase database;
+    DatabaseReference users, forms;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_survey);
+
+        //Firebase setup
+        database = FirebaseDatabase.getInstance();
+        users = database.getReference("Users");
+        forms = database.getReference("Forms");
+
+        //Page elements
+        btnCreateQuestion = (Button)findViewById(R.id.btn_create_question_survey);
+        btnDeleteQuestion = (Button)findViewById(R.id.btn_delete_question_survey);
+        btnFinish = (Button)findViewById(R.id.btn_finish_survey);
+        questionList = (ListView)findViewById(R.id.listview_questions_survey);
+
+        btnCreateQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createQuestion();
+            }
+        });
+
+    }
+
+    private void createQuestion(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateSurveyActivity.this);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View choose_question_type_layout = inflater.inflate(R.layout.question_type_choices, null);
+
+        btnMultipleChoice = (Button)choose_question_type_layout.findViewById(R.id.btn_multiple_choice);
+        btnRanking = (Button)choose_question_type_layout.findViewById(R.id.btn_ranking);
+        btnShortAnswer = (Button)choose_question_type_layout.findViewById(R.id.btn_short_answer);
+        btnTrueFalse = (Button)choose_question_type_layout.findViewById(R.id.btn_true_false);
+
+        alertDialog.setView(choose_question_type_layout);
+        alertDialog.setTitle("Select Question Type:");
+
+        //Canceling question creation
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+
+        alertDialog.show();
+    }
+
+
+
+}
