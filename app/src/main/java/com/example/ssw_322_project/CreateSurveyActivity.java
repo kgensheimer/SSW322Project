@@ -193,7 +193,24 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
         alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 dialog.dismiss();
             }
         });

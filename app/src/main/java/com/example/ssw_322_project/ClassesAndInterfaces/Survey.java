@@ -12,7 +12,8 @@ public class Survey implements Form {
 
 
     @Override
-    public void addQuestion() {
+    public void addQuestion()
+    {
 
     }
 
@@ -22,7 +23,8 @@ public class Survey implements Form {
     }
 
     @Override
-    public void tabulateResults() {
+    public void tabulateResults()
+    {
 
     }
 }

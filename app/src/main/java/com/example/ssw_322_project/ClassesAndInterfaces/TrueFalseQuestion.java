@@ -4,9 +4,17 @@ public class TrueFalseQuestion extends Question {
 
     private boolean correctAnswer; //may change to string
 
-    public TrueFalseQuestion(String question, boolean correctAnswer){
+    //For Test
+    public TrueFalseQuestion(String question, boolean correctAnswer)
+    {
         super.setQuestion(question);
         this.correctAnswer = correctAnswer;
+    }
+
+    //For Survey
+    public TrueFalseQuestion(String question)
+    {
+        super.setQuestion(question);
     }
 
     public boolean getCorrectAnswer(){

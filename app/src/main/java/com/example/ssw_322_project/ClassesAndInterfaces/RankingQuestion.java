@@ -8,6 +8,7 @@ public class RankingQuestion extends Question {
     private String option4;
     private String[] correctOrder;
 
+    //For Test
     public RankingQuestion(String question, String option1, String option2, String option3, String option4, String[] correctOrder){
         super.setQuestion(question);
         this.option1 = option1;
@@ -15,6 +16,14 @@ public class RankingQuestion extends Question {
         this.option3 = option3;
         this.option4 = option4;
         this.correctOrder = correctOrder;
+    }
+    //For Survey
+    public RankingQuestion(String question, String option1, String option2, String option3, String option4){
+        super.setQuestion(question);
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
     }
 
     public String getOption1() {

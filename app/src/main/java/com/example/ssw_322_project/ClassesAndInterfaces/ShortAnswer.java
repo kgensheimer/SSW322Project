@@ -9,11 +9,19 @@ public class ShortAnswer extends Question
     {
     }
 
+    //For Test
     public ShortAnswer (String question, String input, String answer)
     {
         super.setQuestion(question);
         this.input = input;
         this.answer = answer;
+    }
+
+    //For Survery
+    public ShortAnswer (String question, String input)
+    {
+        super.setQuestion(question);
+        this.input = input;
     }
 
     public String getCorrectAnswers()
