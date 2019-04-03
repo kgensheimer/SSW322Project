@@ -10,6 +10,16 @@ public class MultipleChoiceQuestion extends Question {
 
     public MultipleChoiceQuestion(){}
 
+    //Constructor for Survey Question
+    public MultipleChoiceQuestion(String question, String option1, String option2, String option3, String option4) {
+        super.setQuestion(question);
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
+    }
+
+    //Constructor for Test Question
     public MultipleChoiceQuestion(String question, String option1, String option2, String option3, String option4, int correctAnswerNumber) {
         super.setQuestion(question);
         this.option1 = option1;

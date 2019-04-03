@@ -6,12 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
+import com.example.ssw_322_project.ClassesAndInterfaces.Question;
+import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CreateSurveyActivity extends AppCompatActivity {
 
@@ -25,6 +33,8 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
     ListView questionList;
 
+    Survey survey;
+
 
     FirebaseDatabase database;
     DatabaseReference users, forms;
@@ -33,6 +43,8 @@ public class CreateSurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_survey);
+
+        survey = new Survey();
 
         //Firebase setup
         database = FirebaseDatabase.getInstance();
@@ -44,6 +56,7 @@ public class CreateSurveyActivity extends AppCompatActivity {
         btnDeleteQuestion = (Button)findViewById(R.id.btn_delete_question_survey);
         btnFinish = (Button)findViewById(R.id.btn_finish_survey);
         questionList = (ListView)findViewById(R.id.listview_questions_survey);
+
 
         btnCreateQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +143,16 @@ public class CreateSurveyActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                final MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(editMCQuestionStr.getText().toString(),
+                        editMCOption1Str.getText().toString(),
+                        editMCOption2Str.getText().toString(),
+                        editMCOption3Str.getText().toString(),
+                        editMCOption4Str.getText().toString());
+
+                survey.addQuestion(mcq);
+
+
                 dialog.dismiss();
             }
         });
@@ -193,7 +216,24 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
         alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 dialog.dismiss();
             }
         });
