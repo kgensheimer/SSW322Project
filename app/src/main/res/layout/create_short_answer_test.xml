@@ -31,6 +31,21 @@
             app:met_singleLineEllipsis="true"
             />
 
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/short_answer_test_answer"
+            android:hint="Answer"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="20sp"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:met_baseColor="@color/colorPrimary"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_singleLineEllipsis="true"
+            />
+
 
 
 

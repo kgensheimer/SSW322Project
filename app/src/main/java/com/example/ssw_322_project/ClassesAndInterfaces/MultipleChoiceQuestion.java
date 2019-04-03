@@ -7,6 +7,7 @@ public class MultipleChoiceQuestion extends Question {
     private String option3;
     private String option4;
     private int correctAnswerNumber;
+    private final String questionType = "MC";
 
     public MultipleChoiceQuestion(){}
 
@@ -27,6 +28,10 @@ public class MultipleChoiceQuestion extends Question {
         this.option3 = option3;
         this.option4 = option4;
         this.correctAnswerNumber = correctAnswerNumber;
+    }
+
+    public String getQuestionType() {
+        return questionType;
     }
 
     public String getOption1() {

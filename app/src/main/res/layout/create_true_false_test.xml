@@ -31,30 +31,43 @@
             app:met_singleLineEllipsis="true"
             />
 
-        <EditText
-            android:id="@+id/correctAnswerTextBox"
+        <TextView
+            android:id="@+id/correctAnswerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="20sp"
-            tools:text="Choose Correct Answer:" />
+            android:text="Choose Correct Answer"
+            android:textSize="14sp"
+            android:layout_gravity="center" />
 
-        <RadioButton
-            android:id="@+id/mc_test_correct_answer1"
+        <RadioGroup
+            android:id="@+id/tf_test_answer_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="True"
-            android:textSize="17sp"
-            />
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_gravity="center">
 
-        <RadioButton
-            android:id="@+id/mc_test_correct_answer2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="False"
-            android:textSize="17sp"
-            />
+            <RadioButton
+                android:id="@+id/tf_test_correct_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="True"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                />
+
+            <RadioButton
+                android:id="@+id/tf_test_correct_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="False"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                />
+
+        </RadioGroup>
+
 
     </LinearLayout>
 

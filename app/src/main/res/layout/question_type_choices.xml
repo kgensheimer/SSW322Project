@@ -22,12 +22,6 @@
             android:text="Multiple Choice"/>
 
         <Button
-            android:id="@+id/btn_ranking"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Ranking"/>
-
-        <Button
             android:id="@+id/btn_short_answer"
             android:layout_width="150dp"
             android:layout_height="wrap_content"

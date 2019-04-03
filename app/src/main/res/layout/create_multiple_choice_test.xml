@@ -21,7 +21,7 @@
             android:hint="Question"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:hint="Option 1"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:hint="Option 2"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:hint="Option 3"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:hint="Option 4"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,46 +88,61 @@
             app:met_singleLineEllipsis="true"
             />
 
-        <EditText
-            android:id="@+id/correctAnswerTextBox"
+        <TextView
+            android:id="@+id/correctAnswerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="20sp"
-            tools:text="Choose Correct Answer:" />
+            android:text="Choose Correct Answer"
+            android:textSize="14sp"
+            android:layout_gravity="center" />
 
-        <RadioButton
-            android:id="@+id/mc_test_correct_answer1"
+        <RadioGroup
+            android:id="@+id/mc_test_answer_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Option 1"
-            android:textSize="17sp"
-            />
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:layout_gravity="center">
 
-        <RadioButton
-            android:id="@+id/mc_test_correct_answer2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Option 2"
-            android:textSize="17sp"
-            />
+            <RadioButton
+                android:id="@+id/mc_test_correct_answer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                />
 
-        <RadioButton
-            android:id="@+id/mc_test_correct_answer3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Option 3"
-            android:textSize="17sp"
-            />
+            <RadioButton
+                android:id="@+id/mc_test_correct_answer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                />
 
-        <RadioButton
-            android:id="@+id/mc_test_correct_answer4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Option 4"
-            android:textSize="17sp"
-            />
+            <RadioButton
+                android:id="@+id/mc_test_correct_answer3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                />
+
+            <RadioButton
+                android:id="@+id/mc_test_correct_answer4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textSize="16sp"
+                android:layout_weight="1"
+                />
+        </RadioGroup>
+
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

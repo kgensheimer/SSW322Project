@@ -1,30 +1,34 @@
 package com.example.ssw_322_project.ClassesAndInterfaces;
 
-
 import java.util.ArrayList;
 
 public class Survey implements Form {
-
     private String name;
     private int ID;
     private ArrayList<Question> questionArrayList = new ArrayList<Question>();
 
     public Survey(){}
 
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
     @Override
-    public void addQuestion(Question question)
-    {
+    public void addQuestion(Question question) {
         questionArrayList.add(question);
     }
 
     @Override
-    public void deleteQuestion() {
-
+    public void deleteQuestion(Question question) {
+        questionArrayList.remove(question);
     }
 
     @Override
-    public void tabulateResults()
-    {
+    public void tabulateResults() {
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.ssw_322_project;
 
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,12 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.app.Activity;
+import android.widget.Toast;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
 import com.example.ssw_322_project.ClassesAndInterfaces.Question;
+import com.example.ssw_322_project.ClassesAndInterfaces.ShortAnswerQuestion;
 import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
+import com.example.ssw_322_project.ClassesAndInterfaces.TrueFalseQuestion;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
@@ -25,20 +32,19 @@ import java.util.List;
 public class CreateSurveyActivity extends AppCompatActivity {
 
     Button btnFinish, btnCreateQuestion, btnDeleteQuestion;
-    Button btnMultipleChoice, btnRanking, btnShortAnswer, btnTrueFalse; //Choice of question type
+    Button btnMultipleChoice, btnShortAnswer, btnTrueFalse; //Choice of question type
 
+    MaterialEditText editSurveyName;
     MaterialEditText editMCQuestionStr, editMCOption1Str, editMCOption2Str, editMCOption3Str, editMCOption4Str; //multiple choice text fields
     MaterialEditText editTFQuestionStr;
-
     MaterialEditText editSAQuestionStr;
 
     ListView questionList;
 
     Survey survey;
 
-
     FirebaseDatabase database;
-    DatabaseReference users, forms;
+    DatabaseReference users, surveys;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +56,14 @@ public class CreateSurveyActivity extends AppCompatActivity {
         //Firebase setup
         database = FirebaseDatabase.getInstance();
         users = database.getReference("Users");
-        forms = database.getReference("Forms");
+        surveys = database.getReference("Surveys");
 
         //Page elements
         btnCreateQuestion = (Button)findViewById(R.id.btn_create_question_survey);
         btnDeleteQuestion = (Button)findViewById(R.id.btn_delete_question_survey);
         btnFinish = (Button)findViewById(R.id.btn_finish_survey);
         questionList = (ListView)findViewById(R.id.listview_questions_survey);
-
+        editSurveyName = (MaterialEditText)findViewById(R.id.edit_survey_name);
 
         btnCreateQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +72,32 @@ public class CreateSurveyActivity extends AppCompatActivity {
             }
         });
 
-        String[] arr = {"hello", "yaya"}; //test array for listview
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String surveyName = editSurveyName.getText().toString();
+                survey.setName(surveyName);
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.activity_listview,arr);
+                surveys.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.child(survey.getName()).exists()){
+                            Toast.makeText(CreateSurveyActivity.this, "Survey Name Already Exists", Toast.LENGTH_SHORT).show();
 
-        ListView listView = (ListView) findViewById(R.id.listview_questions_survey);
-        listView.setAdapter(adapter);
+                        } else {
+                            surveys.child(survey.getName()).setValue(survey);
+                            Toast.makeText(CreateSurveyActivity.this, "Success.", Toast.LENGTH_LONG).show();
 
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
     }
 
@@ -83,7 +108,6 @@ public class CreateSurveyActivity extends AppCompatActivity {
         View choose_question_type_layout = inflater.inflate(R.layout.question_type_choices, null);
 
         btnMultipleChoice = (Button)choose_question_type_layout.findViewById(R.id.btn_multiple_choice);
-        btnRanking = (Button)choose_question_type_layout.findViewById(R.id.btn_ranking);
         btnShortAnswer = (Button)choose_question_type_layout.findViewById(R.id.btn_short_answer);
         btnTrueFalse = (Button)choose_question_type_layout.findViewById(R.id.btn_true_false);
 
@@ -138,7 +162,7 @@ public class CreateSurveyActivity extends AppCompatActivity {
         editMCOption4Str = (MaterialEditText)create_multiple_choice_survey.findViewById(R.id.mc_survey_answer4);
 
         alertDialog.setView(create_multiple_choice_survey);
-        alertDialog.setTitle("Enter Fields for Multiple Choice Question:");
+        alertDialog.setTitle("Multiple Choice Question:");
 
         //Canceling MC question creation
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -160,14 +184,10 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
                 survey.addQuestion(mcq);
 
+                dialog.dismiss();
+
             }
         });
-
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.activity_listview,survey.getQuestionStrings());
-
-
-        ListView listView = (ListView) findViewById(R.id.listview_questions_survey);
-        listView.setAdapter(adapter);
 
         alertDialog.show();
 
@@ -184,7 +204,7 @@ public class CreateSurveyActivity extends AppCompatActivity {
         editTFQuestionStr = (MaterialEditText)create_true_false_survey.findViewById(R.id.tf_survey_question);
 
         alertDialog.setView(create_true_false_survey);
-        alertDialog.setTitle("Enter Field for True/False Question:");
+        alertDialog.setTitle("True/False Question:");
 
         //Canceling TF question creation
 
@@ -198,6 +218,11 @@ public class CreateSurveyActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                final TrueFalseQuestion tfq = new TrueFalseQuestion(editTFQuestionStr.getText().toString());
+
+                survey.addQuestion(tfq);
+
                 dialog.dismiss();
             }
         });
@@ -216,7 +241,7 @@ public class CreateSurveyActivity extends AppCompatActivity {
         editSAQuestionStr = (MaterialEditText)create_short_answer_survey.findViewById(R.id.short_answer_survey_question);
 
         alertDialog.setView(create_short_answer_survey);
-        alertDialog.setTitle("Enter Fields for Short Answer Question:");
+        alertDialog.setTitle("Short Answer Question:");
 
         //Canceling SA question creation
 
@@ -231,21 +256,9 @@ public class CreateSurveyActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
+                final ShortAnswerQuestion saq = new ShortAnswerQuestion(editSAQuestionStr.getText().toString());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                survey.addQuestion(saq);
 
                 dialog.dismiss();
             }

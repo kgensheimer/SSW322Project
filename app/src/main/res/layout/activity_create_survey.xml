@@ -24,17 +24,25 @@
             android:textSize="22dp"
             android:layout_gravity="center"/>
 
-        <EditText
-            android:id="@+id/editText"
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_survey_name"
+            android:hint="Survey Name"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="18sp"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Survey Name"
-            android:inputType="text" />
+            app:met_baseColor="@color/colorPrimary"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_singleLineEllipsis="true"
+            />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/questionListLinearLayout"
+        android:id="@+id/survey_name_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

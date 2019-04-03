@@ -24,12 +24,20 @@
             android:textSize="22dp"
             android:layout_gravity="center"/>
 
-        <EditText
-            android:id="@+id/editText"
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edit_test_name"
+            android:hint="Test Name"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="18sp"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Test Name"
-            android:inputType="text" />
+            app:met_baseColor="@color/colorPrimary"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_singleLineEllipsis="true"
+            />
 
     </LinearLayout>
 
@@ -48,7 +56,7 @@
         <ListView
             android:id="@+id/listview_questions_test"
             android:layout_width="match_parent"
-            android:layout_height="468dp"
+            android:layout_height="300dp"
             android:scrollbars="vertical">
 
 
