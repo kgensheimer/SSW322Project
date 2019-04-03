@@ -11,3 +11,7 @@
 /build
 /captures
 .externalNativeBuild
+app/src/main/java/com/example/ssw_322_project/ClassesAndInterfaces/gitignore/activity_create_survey.xml
+app/src/main/java/com/example/ssw_322_project/ClassesAndInterfaces/gitignore/CreateSurveyActivity copy.java
+app/src/main/java/com/example/ssw_322_project/ClassesAndInterfaces/gitignore/Survey copy.java
+app/src/main/java/com/example/ssw_322_project/ClassesAndInterfaces/gitignore/Test copy.java
