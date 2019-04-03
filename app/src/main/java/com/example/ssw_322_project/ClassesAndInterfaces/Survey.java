@@ -31,5 +31,15 @@ public class Survey implements Form {
     public ArrayList<Question> getQuestionArrayList(){
         return questionArrayList;
     }
+
+    public ArrayList<String> getQuestionStrings(){
+        ArrayList<String> questionStrings = new ArrayList();
+
+        for(Question q: questionArrayList){
+            questionStrings.add(q.toString());
+        }
+
+        return questionStrings;
+    }
 }
 

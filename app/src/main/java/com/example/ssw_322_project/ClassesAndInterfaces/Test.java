@@ -12,7 +12,7 @@ public class Test implements Form {
 
 
     @Override
-    public void addQuestion() {
+    public void addQuestion(Question question) {
 
     }
 

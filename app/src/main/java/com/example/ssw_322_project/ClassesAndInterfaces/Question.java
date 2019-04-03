@@ -21,5 +21,9 @@ public abstract class Question {
         return this.question;
     }
 
+    public String toString(){
+        return question;
+    }
+
 
 }

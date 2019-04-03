@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.app.Activity;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
 import com.example.ssw_322_project.ClassesAndInterfaces.Question;
@@ -64,6 +65,13 @@ public class CreateSurveyActivity extends AppCompatActivity {
                 createQuestion();
             }
         });
+
+        String[] arr = {"hello", "yaya"}; //test array for listview
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.activity_listview,arr);
+
+        ListView listView = (ListView) findViewById(R.id.listview_questions_survey);
+        listView.setAdapter(adapter);
 
 
     }
@@ -152,12 +160,17 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
                 survey.addQuestion(mcq);
 
-
-                dialog.dismiss();
             }
         });
 
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.activity_listview,survey.getQuestionStrings());
+
+
+        ListView listView = (ListView) findViewById(R.id.listview_questions_survey);
+        listView.setAdapter(adapter);
+
         alertDialog.show();
+
 
     }
 
