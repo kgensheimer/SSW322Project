@@ -31,20 +31,31 @@
             app:met_singleLineEllipsis="true"
             />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/tf_test_answer"
-            android:hint="Choose True or False"
-            android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
-            android:inputType="text"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/correctAnswerTextBox"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:met_baseColor="@color/colorPrimary"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="@color/colorPrimary"
-            app:met_singleLineEllipsis="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="20sp"
+            tools:text="Choose Correct Answer:" />
+
+        <RadioButton
+            android:id="@+id/mc_test_correct_answer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="True"
+            android:textSize="17sp"
             />
+
+        <RadioButton
+            android:id="@+id/mc_test_correct_answer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="False"
+            android:textSize="17sp"
+            />
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
