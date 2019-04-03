@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -77,8 +79,10 @@ public class CreateTestActivity extends AppCompatActivity {
         btnCreateQuestion = (Button)findViewById(R.id.btn_create_question_test);
         btnDeleteQuestion = (Button)findViewById(R.id.btn_delete_question_test);
         btnFinish = (Button)findViewById(R.id.btn_finish_test);
-        questionList = (ListView)findViewById(R.id.listview_questions_test);
         editTestName = (MaterialEditText)findViewById(R.id.edit_test_name);
+
+        //initialize recycler view
+        initRecyclerView();
 
         btnCreateQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +208,7 @@ public class CreateTestActivity extends AppCompatActivity {
                         choiceNumber);
 
                 test.addQuestion(mcq);
+                initRecyclerView();
 
                 dialog.dismiss();
 
@@ -251,6 +256,7 @@ public class CreateTestActivity extends AppCompatActivity {
                 final TrueFalseQuestion tfq = new TrueFalseQuestion(editTFQuestionStr.getText().toString(), choiceBoolean);
 
                 test.addQuestion(tfq);
+                initRecyclerView();
 
                 dialog.dismiss();
             }
@@ -290,6 +296,7 @@ public class CreateTestActivity extends AppCompatActivity {
                 final ShortAnswerQuestion saq = new ShortAnswerQuestion(editSAQuestionStr.getText().toString(), editSAAnswerStr.getText().toString());
 
                 test.addQuestion(saq);
+                initRecyclerView();
 
                 dialog.dismiss();
             }
@@ -297,7 +304,13 @@ public class CreateTestActivity extends AppCompatActivity {
 
         alertDialog.show();
 
+    }
 
+    private void initRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.recyclerview_questions_test);
+        RecyclerViewAdapterTest adapter = new RecyclerViewAdapterTest(this, test);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }
