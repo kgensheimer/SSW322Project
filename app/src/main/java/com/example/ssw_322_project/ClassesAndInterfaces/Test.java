@@ -46,6 +46,27 @@ public class Test implements Form {
         return questionStrings;
     }
 
+    public ArrayList<String> getQuestionTypes(){
+        ArrayList<String> questionTypes = new ArrayList();
+
+        for(Question q: questionArrayList){
+            questionTypes.add(q.getQuestionType());
+        }
+
+        return questionTypes;
+    }
+
+    public ArrayList<String> getAnswers(){
+        ArrayList<String> questionAnswers = new ArrayList();
+
+        for(Question q: questionArrayList){
+            questionAnswers.add(q.getAnswerString());
+        }
+
+        return questionAnswers;
+    }
+
+
 
 
 }

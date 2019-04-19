@@ -9,14 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.app.Activity;
 import android.widget.Toast;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
-import com.example.ssw_322_project.ClassesAndInterfaces.Question;
 import com.example.ssw_322_project.ClassesAndInterfaces.ShortAnswerQuestion;
 import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.example.ssw_322_project.ClassesAndInterfaces.TrueFalseQuestion;
@@ -26,10 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class CreateSurveyActivity extends AppCompatActivity {
 
@@ -277,7 +270,7 @@ public class CreateSurveyActivity extends AppCompatActivity {
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recyclerview_questions_survey);
-        RecyclerViewAdapterSurvey adapter = new RecyclerViewAdapterSurvey(this, survey);
+        RecyclerViewAdapterSurveyCreation adapter = new RecyclerViewAdapterSurveyCreation(this, survey);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

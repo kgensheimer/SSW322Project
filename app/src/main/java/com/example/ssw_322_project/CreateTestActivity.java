@@ -1,6 +1,7 @@
 package com.example.ssw_322_project;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,18 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.app.Activity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
-import com.example.ssw_322_project.ClassesAndInterfaces.Question;
 import com.example.ssw_322_project.ClassesAndInterfaces.ShortAnswerQuestion;
-import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.example.ssw_322_project.ClassesAndInterfaces.Test;
 import com.example.ssw_322_project.ClassesAndInterfaces.TrueFalseQuestion;
 import com.google.firebase.database.DataSnapshot;
@@ -29,10 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class CreateTestActivity extends AppCompatActivity {
 
@@ -106,7 +99,7 @@ public class CreateTestActivity extends AppCompatActivity {
                         } else {
                             tests.child(test.getName()).setValue(test);
                             Toast.makeText(CreateTestActivity.this, "Success.", Toast.LENGTH_LONG).show();
-
+                            returnHome();
                         }
                     }
 
@@ -220,7 +213,6 @@ public class CreateTestActivity extends AppCompatActivity {
 
     }
 
-
     private void createTrueFalse(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateTestActivity.this);
 
@@ -308,9 +300,14 @@ public class CreateTestActivity extends AppCompatActivity {
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recyclerview_questions_test);
-        RecyclerViewAdapterTest adapter = new RecyclerViewAdapterTest(this, test);
+        RecyclerViewAdapterTestCreation adapter = new RecyclerViewAdapterTestCreation(this, test);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void returnHome(){
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
     }
 
 }

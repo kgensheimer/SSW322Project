@@ -5,24 +5,19 @@ public class ShortAnswerQuestion extends Question
 
 
     private String correctAnswer;
-    private final String questionType = "SA";
 
     public ShortAnswerQuestion() {}
 
     //For Test
     public ShortAnswerQuestion (String question, String correctAnswer) {
         super.setQuestion(question);
+        super.setQuestionType("Short Answer");
         this.correctAnswer = correctAnswer;
     }
     //For Survey
     public ShortAnswerQuestion (String question) {
         super.setQuestion(question);
-    }
-
-
-
-    public String getQuestionType() {
-        return questionType;
+        super.setQuestionType("Short Answer");
     }
 
     public String getCorrectAnswer()
@@ -35,4 +30,8 @@ public class ShortAnswerQuestion extends Question
         this.correctAnswer = answer;
     }
 
+    @Override
+    public String getAnswerString() {
+        return correctAnswer;
+    }
 }

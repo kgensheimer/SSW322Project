@@ -3,12 +3,12 @@ package com.example.ssw_322_project.ClassesAndInterfaces;
 public class TrueFalseQuestion extends Question {
 
     private boolean correctAnswer; //may change to string
-    private final String questionType = "TF";
 
     //For Test
     public TrueFalseQuestion(String question, boolean correctAnswer)
     {
         super.setQuestion(question);
+        super.setQuestionType("True / False");
         this.correctAnswer = correctAnswer;
     }
 
@@ -16,11 +16,9 @@ public class TrueFalseQuestion extends Question {
     public TrueFalseQuestion(String question)
     {
         super.setQuestion(question);
+        super.setQuestionType("True / False");
     }
 
-    public String getQuestionType() {
-        return questionType;
-    }
 
 
     public boolean getCorrectAnswer(){
@@ -31,4 +29,12 @@ public class TrueFalseQuestion extends Question {
         this.correctAnswer = correctAnswer;
     }
 
+    @Override
+    public String getAnswerString() {
+        if (correctAnswer){
+            return "True";
+        } else{
+            return "False";
+        }
+    }
 }

@@ -10,25 +10,27 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.example.ssw_322_project.ClassesAndInterfaces.Test;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapterSurvey extends RecyclerView.Adapter<RecyclerViewAdapterSurvey.ViewHolder> {
+public class RecyclerViewAdapterTestCreation extends RecyclerView.Adapter<RecyclerViewAdapterTestCreation.ViewHolder> {
 
-    private static final String TAG = "RecyclerViewAdapterTest";
+    private static final String TAG = "AdapterTestCreation";
 
-    private Survey survey;
+    private Test test;
     private Context mContext;
 
     private ArrayList<String> questionStrings = new ArrayList<String>();
-    //private ArrayList<String> questionTypeStrings = new ArrayList<String>();
+    private ArrayList<String> questionTypes = new ArrayList<String>();
+    private ArrayList<String> answers = new ArrayList<String>();
 
-    public RecyclerViewAdapterSurvey(Context mContext, Survey survey) {
-        this.survey = survey;
+    public RecyclerViewAdapterTestCreation(Context mContext, Test test) {
+        this.test = test;
         this.mContext = mContext;
-        this.questionStrings = this.survey.getQuestionStrings();
+        this.questionStrings = this.test.getQuestionStrings();
+        this.questionTypes = this.test.getQuestionTypes();
+        this.answers = this.test.getAnswers();
     }
 
 
@@ -45,6 +47,8 @@ public class RecyclerViewAdapterSurvey extends RecyclerView.Adapter<RecyclerView
         Log.d(TAG, "onBindViewHolder: called.");
 
         holder.question.setText(questionStrings.get(i));
+        holder.questionType.setText(questionTypes.get(i));
+        holder.answer.setText(answers.get(i));
     }
 
     @Override
@@ -56,12 +60,14 @@ public class RecyclerViewAdapterSurvey extends RecyclerView.Adapter<RecyclerView
 
         TextView question;
         TextView questionType;
+        TextView answer;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             question = itemView.findViewById(R.id.textViewQuestionT);
             questionType = itemView.findViewById(R.id.textViewQuestionTypeT);
+            answer = itemView.findViewById(R.id.textViewAnswerT);
             parentLayout = itemView.findViewById(R.id.parent_layout_test);
 
         }

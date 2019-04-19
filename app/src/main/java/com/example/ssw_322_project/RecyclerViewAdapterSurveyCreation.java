@@ -10,33 +10,32 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.ssw_322_project.ClassesAndInterfaces.Question;
-import com.example.ssw_322_project.ClassesAndInterfaces.Test;
+import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAdapterTest.ViewHolder> {
+public class RecyclerViewAdapterSurveyCreation extends RecyclerView.Adapter<RecyclerViewAdapterSurveyCreation.ViewHolder> {
 
-    private static final String TAG = "RecyclerViewAdapterTest";
+    private static final String TAG = "AdapterSurveyCreation";
 
-    private Test test;
+    private Survey survey;
     private Context mContext;
 
     private ArrayList<String> questionStrings = new ArrayList<String>();
-    //private ArrayList<String> questionTypeStrings = new ArrayList<String>();
-    //private ArrayList<String> answerStrings = new ArrayList<String>();
+    private ArrayList<String> questionTypes = new ArrayList<String>();
 
-    public RecyclerViewAdapterTest(Context mContext, Test test) {
-        this.test = test;
+    public RecyclerViewAdapterSurveyCreation(Context mContext, Survey survey) {
+        this.survey = survey;
         this.mContext = mContext;
-        this.questionStrings = this.test.getQuestionStrings();
+        this.questionStrings = this.survey.getQuestionStrings();
+        this.questionTypes = this.survey.getQuestionTypes();
     }
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recyclerview_test, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recyclerview_survey, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -46,6 +45,7 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
         Log.d(TAG, "onBindViewHolder: called.");
 
         holder.question.setText(questionStrings.get(i));
+        holder.questionType.setText(questionTypes.get(i));
     }
 
     @Override
@@ -57,15 +57,13 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
 
         TextView question;
         TextView questionType;
-        TextView answer;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            question = itemView.findViewById(R.id.textViewQuestionT);
-            questionType = itemView.findViewById(R.id.textViewQuestionTypeT);
-            answer = itemView.findViewById(R.id.textViewAnswerT);
-            parentLayout = itemView.findViewById(R.id.parent_layout_test);
+            question = itemView.findViewById(R.id.textViewQuestionS);
+            questionType = itemView.findViewById(R.id.textViewQuestionTypeS);
+            parentLayout = itemView.findViewById(R.id.parent_layout_survey);
 
         }
     }

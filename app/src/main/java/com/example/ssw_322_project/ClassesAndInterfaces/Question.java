@@ -4,6 +4,9 @@ public abstract class Question {
 
     private String question;
     private int ID;
+    private String questionType;
+
+    private String answerString;
 
     public int getID() {
         return ID;
@@ -21,9 +24,19 @@ public abstract class Question {
         return this.question;
     }
 
+    public String getQuestionType(){
+        return this.questionType;
+    }
+
+    public void setQuestionType(String questionType){
+        this.questionType = questionType;
+    }
+
     public String toString(){
         return question;
     }
+
+    public abstract String getAnswerString();
 
 
 }
