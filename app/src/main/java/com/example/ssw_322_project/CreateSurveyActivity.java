@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
+import com.example.ssw_322_project.ClassesAndInterfaces.Question;
 import com.example.ssw_322_project.ClassesAndInterfaces.ShortAnswerQuestion;
 import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.example.ssw_322_project.ClassesAndInterfaces.TrueFalseQuestion;
@@ -34,6 +35,10 @@ public class CreateSurveyActivity extends AppCompatActivity {
     MaterialEditText editMCQuestionStr, editMCOption1Str, editMCOption2Str, editMCOption3Str, editMCOption4Str; //multiple choice text fields
     MaterialEditText editTFQuestionStr;
     MaterialEditText editSAQuestionStr;
+
+    RecyclerView recyclerView;
+    RecyclerViewAdapterSurveyCreation adapter;
+
 
     ListView questionList;
 
@@ -69,6 +74,13 @@ public class CreateSurveyActivity extends AppCompatActivity {
             }
         });
 
+        btnDeleteQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteQuestion();
+            }
+        });
+
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +104,16 @@ public class CreateSurveyActivity extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+
+    private void deleteQuestion(){
+        Question remove = adapter.getFocusedQuestion();
+        if (remove != null)
+            survey.deleteQuestion(remove);
+        initRecyclerView();
     }
 
     private void createQuestion(){
@@ -266,8 +288,8 @@ public class CreateSurveyActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.recyclerview_questions_survey);
-        RecyclerViewAdapterSurveyCreation adapter = new RecyclerViewAdapterSurveyCreation(this, survey);
+        recyclerView = findViewById(R.id.recyclerview_questions_survey);
+        adapter = new RecyclerViewAdapterSurveyCreation(this, survey);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

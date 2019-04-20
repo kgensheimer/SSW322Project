@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.ssw_322_project.ClassesAndInterfaces.Question;
 import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 
 import java.util.ArrayList;
@@ -72,6 +73,16 @@ public class RecyclerViewAdapterSurveyCreation extends RecyclerView.Adapter<Recy
     @Override
     public int getItemCount() {
         return questionStrings.size();
+    }
+
+    public int getFocusedItem(){
+        return focusedItem;
+    }
+
+    public Question getFocusedQuestion(){
+        if (survey.getQuestionArrayList().size() == 0)
+            return null;
+        return survey.getQuestionArrayList().get(focusedItem);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

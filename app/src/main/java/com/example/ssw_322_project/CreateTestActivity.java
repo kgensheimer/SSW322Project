@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
+import com.example.ssw_322_project.ClassesAndInterfaces.Question;
 import com.example.ssw_322_project.ClassesAndInterfaces.ShortAnswerQuestion;
 import com.example.ssw_322_project.ClassesAndInterfaces.Test;
 import com.example.ssw_322_project.ClassesAndInterfaces.TrueFalseQuestion;
@@ -49,7 +50,8 @@ public class CreateTestActivity extends AppCompatActivity {
     RadioButton rbtnTFAnswer;
     RadioGroup radioGroupTFAnswer;
 
-    ListView questionList;
+    RecyclerView recyclerView;
+    RecyclerViewAdapterTestCreation adapter;
 
     Test test;
 
@@ -84,6 +86,13 @@ public class CreateTestActivity extends AppCompatActivity {
             }
         });
 
+        btnDeleteQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteQuestion();
+            }
+        });
+
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +116,14 @@ public class CreateTestActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private void deleteQuestion(){
+        Question remove = adapter.getFocusedQuestion();
+        if (remove != null)
+            test.deleteQuestion(remove);
+        initRecyclerView();
     }
 
     private void createQuestion(){
@@ -295,8 +312,8 @@ public class CreateTestActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.recyclerview_questions_test);
-        RecyclerViewAdapterTestCreation adapter = new RecyclerViewAdapterTestCreation(this, test);
+        recyclerView = findViewById(R.id.recyclerview_questions_test);
+        adapter = new RecyclerViewAdapterTestCreation(this, test);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
