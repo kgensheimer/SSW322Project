@@ -73,9 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/short_answer_tf_questions"
             android:layout_weight="1"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <Button
                 android:id="@+id/btn_delete_question_test"
@@ -83,7 +82,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Delete Question" />
+                android:text="Delete" />
+            <Button
+                android:id="@+id/btn_modify_question_test"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Modify"/>
+
 
             <Button
                 android:id="@+id/btn_create_question_test"
@@ -91,7 +98,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add Question"/>
+                android:text="Add"/>
 
         </LinearLayout>
 
