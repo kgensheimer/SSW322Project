@@ -93,14 +93,10 @@ public class CreateTestActivity extends AppCompatActivity {
                 tests.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(test.getName()).exists()){
-                            Toast.makeText(CreateTestActivity.this, "Test Name Already Exists", Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            tests.child(test.getName()).setValue(test);
-                            Toast.makeText(CreateTestActivity.this, "Success.", Toast.LENGTH_LONG).show();
-                            returnHome();
-                        }
+                     tests.child(test.getName()).setValue(test);
+                     Toast.makeText(CreateTestActivity.this, "Success.", Toast.LENGTH_LONG).show();
+                     returnHome();
                     }
 
                     @Override

@@ -1,6 +1,7 @@
 package com.example.ssw_322_project;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -77,14 +78,10 @@ public class CreateSurveyActivity extends AppCompatActivity {
                 surveys.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(survey.getName()).exists()){
-                            Toast.makeText(CreateSurveyActivity.this, "Survey Name Already Exists", Toast.LENGTH_SHORT).show();
+                        surveys.child(survey.getName()).setValue(survey);
+                        Toast.makeText(CreateSurveyActivity.this, "Success.", Toast.LENGTH_LONG).show();
+                        returnHome();;
 
-                        } else {
-                            surveys.child(survey.getName()).setValue(survey);
-                            Toast.makeText(CreateSurveyActivity.this, "Success.", Toast.LENGTH_LONG).show();
-
-                        }
                     }
 
                     @Override
@@ -273,6 +270,11 @@ public class CreateSurveyActivity extends AppCompatActivity {
         RecyclerViewAdapterSurveyCreation adapter = new RecyclerViewAdapterSurveyCreation(this, survey);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void returnHome(){
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
     }
 
 }

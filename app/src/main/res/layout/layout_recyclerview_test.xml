@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:id="@+id/parent_layout_test">
-
+    android:id="@+id/parent_layout_test"
+    android:background="@drawable/selector_highlighter">
+    <!--the line above allows for highlight selections-->
 
     <TextView
         android:id="@+id/textViewQuestionDescT"

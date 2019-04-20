@@ -25,6 +25,8 @@ public class RecyclerViewAdapterTestCreation extends RecyclerView.Adapter<Recycl
     private ArrayList<String> questionTypes = new ArrayList<String>();
     private ArrayList<String> answers = new ArrayList<String>();
 
+    private int focusedItem;
+
     public RecyclerViewAdapterTestCreation(Context mContext, Test test) {
         this.test = test;
         this.mContext = mContext;
@@ -43,12 +45,33 @@ public class RecyclerViewAdapterTestCreation extends RecyclerView.Adapter<Recycl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
         Log.d(TAG, "onBindViewHolder: called.");
 
         holder.question.setText(questionStrings.get(i));
         holder.questionType.setText(questionTypes.get(i));
         holder.answer.setText(answers.get(i));
+
+        //unhighlights the previous item
+        if (focusedItem == i) {
+            holder.parentLayout.setSelected(true);
+        } else {
+            holder.parentLayout.setSelected(false);
+        }
+
+
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: clicked on: " + questionStrings.get(i));
+                //Following assigns the clicked question to the focused question
+                notifyItemChanged(i);
+                focusedItem = i;
+                holder.parentLayout.setSelected(true);
+                notifyDataSetChanged();
+
+            }
+        });
     }
 
     @Override

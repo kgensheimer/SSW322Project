@@ -24,6 +24,8 @@ public class RecyclerViewAdapterSurveyCreation extends RecyclerView.Adapter<Recy
     private ArrayList<String> questionStrings = new ArrayList<String>();
     private ArrayList<String> questionTypes = new ArrayList<String>();
 
+    private int focusedItem;
+
     public RecyclerViewAdapterSurveyCreation(Context mContext, Survey survey) {
         this.survey = survey;
         this.mContext = mContext;
@@ -41,11 +43,30 @@ public class RecyclerViewAdapterSurveyCreation extends RecyclerView.Adapter<Recy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
         Log.d(TAG, "onBindViewHolder: called.");
 
         holder.question.setText(questionStrings.get(i));
         holder.questionType.setText(questionTypes.get(i));
+
+        //unhighlights the previous item
+        if (focusedItem == i) {
+            holder.parentLayout.setSelected(true);
+        } else {
+            holder.parentLayout.setSelected(false);
+        }
+
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: clicked on: " + questionStrings.get(i));
+                //Following assigns the clicked question to the focused question
+                notifyItemChanged(i);
+                focusedItem = i;
+                holder.parentLayout.setSelected(true);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -61,6 +82,7 @@ public class RecyclerViewAdapterSurveyCreation extends RecyclerView.Adapter<Recy
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setClickable(true);
             question = itemView.findViewById(R.id.textViewQuestionS);
             questionType = itemView.findViewById(R.id.textViewQuestionTypeS);
             parentLayout = itemView.findViewById(R.id.parent_layout_survey);
