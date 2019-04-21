@@ -1,35 +1,67 @@
 package com.example.ssw_322_project;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ScrollView;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.Question;
+import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
+import com.example.ssw_322_project.ClassesAndInterfaces.Test;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
 
     Button btnModify, btnViewResults, btnTake, btnCreateSurvey, btnCreateTest;
 
     FirebaseDatabase database;
-    DatabaseReference users, forms;
+    DatabaseReference users, forms, tests , surveys;
+
+    private ListView testList;
+    private ArrayAdapter<String> test_adapter;
+    private ArrayList<String> test_list = new ArrayList<String>();
+
+    private ListView surveyList;
+    private ArrayAdapter<String> survey_adapter;
+    private ArrayList<String> survey_list = new ArrayList<String>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         //Firebase setup
         database = FirebaseDatabase.getInstance();
         users = database.getReference("Users");
         forms = database.getReference("Forms");
+        tests = database.getReference("Tests");
+        surveys = database.getReference("Surveys");
+
+        //ListView setup
+        test_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview,test_list);
+        testList = (ListView) findViewById(R.id.test_list_view);
+        testList.setAdapter(test_adapter);
+
+        survey_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview,survey_list);
+        surveyList = (ListView) findViewById(R.id.survey_list_view);
+        surveyList.setAdapter(survey_adapter);
+
 
         //Home page elements
         btnModify = (Button)findViewById(R.id.btn_modify);
@@ -52,6 +84,62 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        tests.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String value= dataSnapshot.getKey();
+                test_list.add(value);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        surveys.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String value= dataSnapshot.getKey();
+                survey_list.add(value);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void createSurvey(){
@@ -64,6 +152,11 @@ public class Home extends AppCompatActivity {
         Intent intent = new Intent(this, CreateTestActivity.class);
         startActivity(intent);
     }
+
+
+
+
+
 
 
 
