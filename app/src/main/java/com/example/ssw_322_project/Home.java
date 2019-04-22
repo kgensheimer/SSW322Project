@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
 
-    Button btnModify, btnViewResults, btnTake, btnCreateSurvey, btnCreateTest;
+    Button btnModify, btnViewResults, btnTake;
 
     FirebaseDatabase database;
     DatabaseReference users, forms, tests , surveys;
@@ -72,22 +72,6 @@ public class Home extends AppCompatActivity {
         btnModify = (Button)findViewById(R.id.btn_modify);
         btnViewResults = (Button)findViewById(R.id.btn_view_results);
         btnTake = (Button)findViewById(R.id.btn_take);
-        btnCreateSurvey = (Button)findViewById(R.id.btn_create_survey);
-        btnCreateTest = (Button)findViewById(R.id.btn_create_test);
-
-        btnCreateSurvey.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createSurvey();
-            }
-        });
-
-        btnCreateTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createTest();
-            }
-        });
 
         //Loading tests
         tests.addChildEventListener(new ChildEventListener() {
@@ -168,25 +152,4 @@ public class Home extends AppCompatActivity {
         });
 
     }
-
-
-
-    private void createSurvey(){
-        Intent intent = new Intent(this, CreateSurveyActivity.class);
-        startActivity(intent);
-    }
-
-
-    private void createTest(){
-        Intent intent = new Intent(this, CreateTestActivity.class);
-        startActivity(intent);
-    }
-
-
-
-
-
-
-
-
 }

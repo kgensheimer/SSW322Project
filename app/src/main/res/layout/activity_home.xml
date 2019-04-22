@@ -74,41 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/loading_buttons"
-            android:layout_weight="1"
-            android:padding="1dp"
-            android:weightSum="4"
->
 
-            <Button
-                android:id="@+id/btn_modify"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Modify" />
-
-            <Button
-                android:id="@+id/btn_view_results"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Results" />
-
-            <Button
-                android:id="@+id/btn_take"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Take" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,24 +86,42 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/btn_create_survey"
+                android:id="@+id/btn_view_results"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Create New Survey" />
+                android:text="Results" />
 
             <Button
-                android:id="@+id/btn_create_test"
+                android:id="@+id/btn_modify"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Create New Test" />
+                android:text="Modify" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/loading_buttons"
+            android:layout_weight="1"
+            android:padding="1dp"
+            android:weightSum="4"
+            >
 
+            <Button
+                android:id="@+id/btn_take"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="411dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Take" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         User loginInfo = dataSnapshot.child(user).getValue(User.class);
                         if(loginInfo.getPassword().equals(password)){
                             Toast.makeText(MainActivity.this, "Success.", Toast.LENGTH_SHORT).show();
-                            showHomePage();
+                            showButtonPage();
                         }
                         else {
                             Toast.makeText(MainActivity.this, "Incorrect Username/Password.", Toast.LENGTH_SHORT).show();
@@ -146,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void showHomePage(){
-        Intent intent = new Intent(this, Home.class);
+    private void showButtonPage(){
+        Intent intent = new Intent(this, LoadCreateButtons.class);
         startActivity(intent);
     }
 

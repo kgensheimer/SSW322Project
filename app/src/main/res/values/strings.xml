@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SSW-322-Project</string>
     <string name="title_activity_home">Home</string>
+    <string name="title_activity_load_create_buttons">LoadCreateButtons</string>
 </resources>
