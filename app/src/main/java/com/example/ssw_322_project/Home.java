@@ -6,11 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import com.example.ssw_322_project.ClassesAndInterfaces.Form;
 import com.example.ssw_322_project.ClassesAndInterfaces.Question;
 import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.example.ssw_322_project.ClassesAndInterfaces.Test;
@@ -29,6 +31,7 @@ public class Home extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference users, forms, tests , surveys;
+    Form focusedForm;
 
     private ListView testList;
     private ArrayAdapter<String> test_adapter;
@@ -53,15 +56,17 @@ public class Home extends AppCompatActivity {
         tests = database.getReference("Tests");
         surveys = database.getReference("Surveys");
 
+
         //ListView setup
         test_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview,test_list);
         testList = (ListView) findViewById(R.id.test_list_view);
         testList.setAdapter(test_adapter);
+        testList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         survey_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview,survey_list);
         surveyList = (ListView) findViewById(R.id.survey_list_view);
         surveyList.setAdapter(survey_adapter);
-
+        surveyList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         //Home page elements
         btnModify = (Button)findViewById(R.id.btn_modify);
@@ -84,6 +89,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        //Loading tests
         tests.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -110,8 +116,11 @@ public class Home extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
+
         });
 
+        //Loading surveys
         surveys.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -140,7 +149,27 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        //On click for Tests
+        testList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                surveyList.setItemChecked(-1, true);
+                view.setSelected(true);
+            }
+        });
+
+        //On click for Surveys
+        surveyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                testList.setItemChecked(-1, true);
+                view.setSelected(true);
+            }
+        });
+
     }
+
+
 
     private void createSurvey(){
         Intent intent = new Intent(this, CreateSurveyActivity.class);
