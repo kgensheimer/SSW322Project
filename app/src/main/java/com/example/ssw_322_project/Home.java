@@ -13,8 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.Form;
+import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
+import com.example.ssw_322_project.ClassesAndInterfaces.Question;
 import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.example.ssw_322_project.ClassesAndInterfaces.Test;
+import com.example.ssw_322_project.ClassesAndInterfaces.TrueFalseQuestion;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,6 +82,7 @@ public class Home extends AppCompatActivity {
         });
 
         //Loading tests
+        /*
         tests.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -87,8 +91,11 @@ public class Home extends AppCompatActivity {
 
                 Log.d("Loading name:", dataSnapshot.getValue().toString());
                 //Log.d("Loading q prompt:", dataSnapshot.child("questionArrayList").getValue().toString());
+                Log.d("Loading prompt/qs:", dataSnapshot.child("questionArrayList").toString());
 
-
+                for (DataSnapshot ds : dataSnapshot.child("questionArrayList").getChildren()) {
+                    Log.d("Loading question name:", ds.child("answerString").toString());
+                }
 
                 //Test test = dataSnapshot.getValue(Test.class);
                 //test_list_string.add(test.getName());
@@ -126,21 +133,57 @@ public class Home extends AppCompatActivity {
 
 
         });
+        */
 
         //Loading surveys
         surveys.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d("reading data", dataSnapshot.getValue().toString());
+                //Log.d("reading data", dataSnapshot.child("questionStrings").getValue().toString());
+                Survey tempSurvey = new Survey();
+                String surveyName = dataSnapshot.getKey();
+                tempSurvey.setName(surveyName);
+
+                for (DataSnapshot ds : dataSnapshot.child("questionArrayList").getChildren()) {
+                    Question q = null;
+                    String questionPrompt = (String) ds.child("question").getValue();
+                    String questionType = (String) ds.child("questionType").getValue();
+
+                    if (questionType.equals("Multiple Choice")) {
+                        q = new MultipleChoiceQuestion();
+                        String o1 = ds.child("option1").toString();
+                        String o2 = ds.child("option2").toString();
+                        String o3 = ds.child("option3").toString();
+                        String o4 = ds.child("option4").toString();
+
+                        q.setQuestion(questionPrompt);
+                        ((MultipleChoiceQuestion) q).setOption1(o1);
+                        ((MultipleChoiceQuestion) q).setOption2(o2);
+                        ((MultipleChoiceQuestion) q).setOption3(o3);
+                        ((MultipleChoiceQuestion) q).setOption4(o4);
+
+                        tempSurvey.addQuestion(q);
+
+                    } else if (questionType.equals("Short Answer")) {
+                        q = new TrueFalseQuestion(questionPrompt);
+                        tempSurvey.addQuestion(q);
+
+                    } else if (questionType.equals("True / False")) {
+                        q = new TrueFalseQuestion(questionPrompt);
+                        tempSurvey.addQuestion(q);
+                    }
+
+                }
+
+
+
                 //String surveyName = dataSnapshot.getKey();
                 //survey_list_string.add(surveyName);
 
-                Log.d("Loading name:", dataSnapshot.getValue().toString());
-                //Log.d("Loading q prompt:", dataSnapshot.child("questionStrings").getValue().toString());
-
-
                 //Survey survey = dataSnapshot.getValue(Survey.class);
-                //survey_list_string.add(survey.getName());
-                //survey_arraylist.add(survey);
+                survey_list_string.add(tempSurvey.getName());
+                survey_arraylist.add(tempSurvey);
 
                 //ListView setup
                 initListViewTests();

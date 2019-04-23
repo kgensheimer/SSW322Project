@@ -6,6 +6,8 @@ public class TrueFalseQuestion extends Question implements Serializable {
 
     private boolean correctAnswer; //may change to string
 
+    public TrueFalseQuestion(){}
+
     //For Test
     public TrueFalseQuestion(String question, boolean correctAnswer)
     {
