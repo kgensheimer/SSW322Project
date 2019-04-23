@@ -60,15 +60,8 @@ public class Home extends AppCompatActivity {
 
 
         //ListView setup
-        test_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview, test_list_string);
-        testListView = (ListView) findViewById(R.id.test_list_view);
-        testListView.setAdapter(test_adapter);
-        testListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-        survey_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview, survey_list_string);
-        surveyListView = (ListView) findViewById(R.id.survey_list_view);
-        surveyListView.setAdapter(survey_adapter);
-        surveyListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        initListViewTests();
+        initListViewSurveys();
 
         //Home page elements
         btnModify = (Button)findViewById(R.id.btn_modify);
@@ -89,12 +82,26 @@ public class Home extends AppCompatActivity {
         tests.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String testName = dataSnapshot.getKey();
-                test_list_string.add(testName);
+                //String testName = dataSnapshot.getKey();
+                //test_list_string.add(testName);
+
+                Log.d("Loading name:", dataSnapshot.getValue().toString());
+                //Log.d("Loading q prompt:", dataSnapshot.child("questionArrayList").getValue().toString());
+
+
 
                 //Test test = dataSnapshot.getValue(Test.class);
                 //test_list_string.add(test.getName());
                 //test_arraylist.add(test);
+
+
+
+
+                //ListView setup
+                initListViewTests();
+                initListViewSurveys();
+
+
             }
 
             @Override
@@ -124,14 +131,21 @@ public class Home extends AppCompatActivity {
         surveys.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                //String surveyName = dataSnapshot.getKey();
+                //survey_list_string.add(surveyName);
+
+                Log.d("Loading name:", dataSnapshot.getValue().toString());
+                //Log.d("Loading q prompt:", dataSnapshot.child("questionStrings").getValue().toString());
 
 
-                String surveyName = dataSnapshot.getKey();
-                survey_list_string.add(surveyName);
-                
                 //Survey survey = dataSnapshot.getValue(Survey.class);
                 //survey_list_string.add(survey.getName());
                 //survey_arraylist.add(survey);
+
+                //ListView setup
+                initListViewTests();
+                initListViewSurveys();
+
 
             }
 
@@ -199,5 +213,20 @@ public class Home extends AppCompatActivity {
         intent.putExtra("Test", (Test) focusedTest);
 
         startActivity(intent);
+    }
+
+
+    private void initListViewSurveys(){
+        survey_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview, survey_list_string);
+        surveyListView = (ListView) findViewById(R.id.survey_list_view);
+        surveyListView.setAdapter(survey_adapter);
+        surveyListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+    }
+
+    private void initListViewTests(){
+        test_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview, test_list_string);
+        testListView = (ListView) findViewById(R.id.test_list_view);
+        testListView.setAdapter(test_adapter);
+        testListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 }
