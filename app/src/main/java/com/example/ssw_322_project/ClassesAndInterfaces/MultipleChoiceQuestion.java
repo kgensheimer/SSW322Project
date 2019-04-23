@@ -11,7 +11,9 @@ public class MultipleChoiceQuestion extends Question implements Serializable {
     private int correctAnswerNumber;
 
 
-    public MultipleChoiceQuestion(){}
+    public MultipleChoiceQuestion(){
+        super.setQuestionType("Multiple Choice");
+    }
 
     //Constructor for Survey Question
     public MultipleChoiceQuestion(String question, String option1, String option2, String option3, String option4) {

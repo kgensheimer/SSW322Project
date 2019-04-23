@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.example.ssw_322_project.ClassesAndInterfaces.Form;
 import com.example.ssw_322_project.ClassesAndInterfaces.MultipleChoiceQuestion;
 import com.example.ssw_322_project.ClassesAndInterfaces.Question;
+import com.example.ssw_322_project.ClassesAndInterfaces.ShortAnswerQuestion;
 import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.example.ssw_322_project.ClassesAndInterfaces.Test;
 import com.example.ssw_322_project.ClassesAndInterfaces.TrueFalseQuestion;
@@ -82,26 +83,51 @@ public class Home extends AppCompatActivity {
         });
 
         //Loading tests
-        /*
         tests.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //String testName = dataSnapshot.getKey();
-                //test_list_string.add(testName);
-
-                Log.d("Loading name:", dataSnapshot.getValue().toString());
-                //Log.d("Loading q prompt:", dataSnapshot.child("questionArrayList").getValue().toString());
-                Log.d("Loading prompt/qs:", dataSnapshot.child("questionArrayList").toString());
+                Test tempTest = new Test();
+                String testName = dataSnapshot.getKey();
+                tempTest.setName(testName);
 
                 for (DataSnapshot ds : dataSnapshot.child("questionArrayList").getChildren()) {
-                    Log.d("Loading question name:", ds.child("answerString").toString());
+                    Question q = null;
+                    String questionPrompt = (String) ds.child("question").getValue();
+                    String questionType = (String) ds.child("questionType").getValue();
+
+                    if (questionType.equals("Multiple Choice")) {
+                        q = new MultipleChoiceQuestion();
+                        String o1 = ds.child("option1").getValue(String.class);
+                        String o2 = ds.child("option2").getValue(String.class);
+                        String o3 = ds.child("option3").getValue(String.class);
+                        String o4 = ds.child("option4").getValue(String.class);
+                        int answerChoice = ds.child("correctAnswerNumber").getValue(Integer.class);
+
+                        q.setQuestion(questionPrompt);
+                        ((MultipleChoiceQuestion) q).setOption1(o1);
+                        ((MultipleChoiceQuestion) q).setOption2(o2);
+                        ((MultipleChoiceQuestion) q).setOption3(o3);
+                        ((MultipleChoiceQuestion) q).setOption4(o4);
+                        ((MultipleChoiceQuestion) q).setCorrectAnswerNumber(answerChoice);
+
+                        tempTest.addQuestion(q);
+
+                    } else if (questionType.equals("Short Answer")) {
+                        String correctAnswer = ds.child("correctAnswer").getValue(String.class);
+                        q = new ShortAnswerQuestion(questionPrompt, correctAnswer);
+                        tempTest.addQuestion(q);
+
+                    } else if (questionType.equals("True / False")) {
+                        boolean correctAnswer = ds.child("correctAnswer").getValue(Boolean.class);
+                        q = new TrueFalseQuestion(questionPrompt, correctAnswer);
+                        tempTest.addQuestion(q);
+                    }
+
                 }
 
                 //Test test = dataSnapshot.getValue(Test.class);
-                //test_list_string.add(test.getName());
-                //test_arraylist.add(test);
-
-
+                test_list_string.add(tempTest.getName());
+                test_arraylist.add(tempTest);
 
 
                 //ListView setup
@@ -133,29 +159,27 @@ public class Home extends AppCompatActivity {
 
 
         });
-        */
+
 
         //Loading surveys
         surveys.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("reading data", dataSnapshot.getValue().toString());
-                //Log.d("reading data", dataSnapshot.child("questionStrings").getValue().toString());
                 Survey tempSurvey = new Survey();
                 String surveyName = dataSnapshot.getKey();
                 tempSurvey.setName(surveyName);
 
                 for (DataSnapshot ds : dataSnapshot.child("questionArrayList").getChildren()) {
                     Question q = null;
-                    String questionPrompt = (String) ds.child("question").getValue();
-                    String questionType = (String) ds.child("questionType").getValue();
+                    String questionPrompt = ds.child("question").getValue(String.class);
+                    String questionType = ds.child("questionType").getValue(String.class);
 
                     if (questionType.equals("Multiple Choice")) {
                         q = new MultipleChoiceQuestion();
-                        String o1 = ds.child("option1").toString();
-                        String o2 = ds.child("option2").toString();
-                        String o3 = ds.child("option3").toString();
-                        String o4 = ds.child("option4").toString();
+                        String o1 = ds.child("option1").getValue(String.class);
+                        String o2 = ds.child("option2").getValue(String.class);
+                        String o3 = ds.child("option3").getValue(String.class);
+                        String o4 = ds.child("option4").getValue(String.class);
 
                         q.setQuestion(questionPrompt);
                         ((MultipleChoiceQuestion) q).setOption1(o1);
@@ -166,7 +190,7 @@ public class Home extends AppCompatActivity {
                         tempSurvey.addQuestion(q);
 
                     } else if (questionType.equals("Short Answer")) {
-                        q = new TrueFalseQuestion(questionPrompt);
+                        q = new ShortAnswerQuestion(questionPrompt);
                         tempSurvey.addQuestion(q);
 
                     } else if (questionType.equals("True / False")) {
@@ -176,12 +200,6 @@ public class Home extends AppCompatActivity {
 
                 }
 
-
-
-                //String surveyName = dataSnapshot.getKey();
-                //survey_list_string.add(surveyName);
-
-                //Survey survey = dataSnapshot.getValue(Survey.class);
                 survey_list_string.add(tempSurvey.getName());
                 survey_arraylist.add(tempSurvey);
 
@@ -251,7 +269,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void modifyTest(Test t){
-        Intent intent = new Intent(this, CreateSurveyActivity.class);
+        Intent intent = new Intent(this, CreateTestActivity.class);
 
         intent.putExtra("Test", (Test) focusedTest);
 

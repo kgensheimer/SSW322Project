@@ -6,7 +6,9 @@ public class ShortAnswerQuestion extends Question
 
     private String correctAnswer;
 
-    public ShortAnswerQuestion() {}
+    public ShortAnswerQuestion() {
+        super.setQuestionType("Short Answer");
+    }
 
     //For Test
     public ShortAnswerQuestion (String question, String correctAnswer) {
