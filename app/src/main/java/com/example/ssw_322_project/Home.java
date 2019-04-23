@@ -125,10 +125,6 @@ public class Home extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                Survey survey = dataSnapshot.getValue(Survey.class);
-                survey_list_string.add(survey.getName());
-                survey_arraylist.add(survey);
-
 
                 String surveyName = dataSnapshot.getKey();
                 survey_list_string.add(surveyName);
