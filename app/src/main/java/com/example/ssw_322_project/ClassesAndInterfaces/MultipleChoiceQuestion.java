@@ -1,6 +1,8 @@
 package com.example.ssw_322_project.ClassesAndInterfaces;
 
-public class MultipleChoiceQuestion extends Question {
+import java.io.Serializable;
+
+public class MultipleChoiceQuestion extends Question implements Serializable {
 
     private String option1;
     private String option2;

@@ -1,6 +1,8 @@
 package com.example.ssw_322_project.ClassesAndInterfaces;
 
-public class TrueFalseQuestion extends Question {
+import java.io.Serializable;
+
+public class TrueFalseQuestion extends Question implements Serializable {
 
     private boolean correctAnswer; //may change to string
 

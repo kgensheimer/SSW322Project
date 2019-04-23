@@ -1,11 +1,15 @@
 package com.example.ssw_322_project.ClassesAndInterfaces;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Survey implements Form {
+public class Survey implements Form, Serializable {
     private String name;
     private int ID;
     private ArrayList<Question> questionArrayList = new ArrayList<Question>();
+    private static final long serialVersionUID = 1L;
+
+
 
     public Survey(){}
 

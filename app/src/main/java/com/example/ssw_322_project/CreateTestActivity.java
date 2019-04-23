@@ -64,7 +64,17 @@ public class CreateTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_test);
 
-        test = new Test();
+        Intent intent = getIntent();
+
+        test = (Test) intent.getSerializableExtra("Test");
+
+        String testName = null;
+
+        //if no test was passed through/serialized
+        if (test == null)
+            test = new Test();
+        else
+            testName = test.getName();
 
         //Firebase setup
         database = FirebaseDatabase.getInstance();
@@ -77,6 +87,9 @@ public class CreateTestActivity extends AppCompatActivity {
         btnModifyQuestion = (Button)findViewById(R.id.btn_modify_question_test);
         btnFinish = (Button)findViewById(R.id.btn_finish_test);
         editTestName = (MaterialEditText)findViewById(R.id.edit_test_name);
+
+        if (testName != null)
+            editTestName.setText(testName);
 
         //initialize recycler view
         initRecyclerView();

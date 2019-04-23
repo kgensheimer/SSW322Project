@@ -52,7 +52,18 @@ public class CreateSurveyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_survey);
 
-        survey = new Survey();
+        Intent intent = getIntent();
+
+        survey = (Survey) intent.getSerializableExtra("Survey");
+        String surveyName = null;
+
+        //if no survey was passed through/serialized
+        if (survey == null)
+            survey = new Survey();
+        else
+            surveyName = survey.getName();
+
+
 
         //Firebase setup
         database = FirebaseDatabase.getInstance();
@@ -65,6 +76,10 @@ public class CreateSurveyActivity extends AppCompatActivity {
         btnModifyQuestion = (Button)findViewById(R.id.btn_modify_question_survey);
         btnFinish = (Button)findViewById(R.id.btn_finish_survey);
         editSurveyName = (MaterialEditText)findViewById(R.id.edit_survey_name);
+
+        if (surveyName != null)
+            editSurveyName.setText(surveyName);
+
 
         initRecyclerView();
 
