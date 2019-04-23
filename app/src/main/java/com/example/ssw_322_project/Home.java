@@ -89,9 +89,12 @@ public class Home extends AppCompatActivity {
         tests.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Test test = dataSnapshot.getValue(Test.class);
-                test_list_string.add(test.getName());
-                test_arraylist.add(test);
+                String testName = dataSnapshot.getKey();
+                test_list_string.add(testName);
+
+                //Test test = dataSnapshot.getValue(Test.class);
+                //test_list_string.add(test.getName());
+                //test_arraylist.add(test);
             }
 
             @Override
@@ -121,9 +124,12 @@ public class Home extends AppCompatActivity {
         surveys.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Survey survey = dataSnapshot.getValue(Survey.class);
-                survey_list_string.add(survey.getName());
-                survey_arraylist.add(survey);
+                String surveyName = dataSnapshot.getKey();
+                survey_list_string.add(surveyName);
+                
+                //Survey survey = dataSnapshot.getValue(Survey.class);
+                //survey_list_string.add(survey.getName());
+                //survey_arraylist.add(survey);
             }
 
             @Override
