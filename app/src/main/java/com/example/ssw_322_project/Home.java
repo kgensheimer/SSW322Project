@@ -124,6 +124,7 @@ public class Home extends AppCompatActivity {
                 Survey survey = dataSnapshot.getValue(Survey.class);
                 survey_list_string.add(survey.getName());
                 survey_arraylist.add(survey);
+
             }
 
             @Override
