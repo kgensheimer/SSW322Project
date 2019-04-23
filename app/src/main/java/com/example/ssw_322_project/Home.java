@@ -5,15 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 
 import com.example.ssw_322_project.ClassesAndInterfaces.Form;
-import com.example.ssw_322_project.ClassesAndInterfaces.Question;
 import com.example.ssw_322_project.ClassesAndInterfaces.Survey;
 import com.example.ssw_322_project.ClassesAndInterfaces.Test;
 import com.google.firebase.database.ChildEventListener;
@@ -21,7 +20,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
 
@@ -31,15 +29,19 @@ public class Home extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference users, forms, tests , surveys;
-    Form focusedForm;
+    Test focusedTest;
+    Survey focusedSurvey;
+    boolean focusedOnSurvey;
 
-    private ListView testList;
+    private ListView testListView;
     private ArrayAdapter<String> test_adapter;
-    private ArrayList<String> test_list = new ArrayList<String>();
+    private ArrayList<String> test_list_string = new ArrayList<String>();
+    private ArrayList<Test> test_arraylist = new ArrayList<Test>();
 
-    private ListView surveyList;
+    private ListView surveyListView;
     private ArrayAdapter<String> survey_adapter;
-    private ArrayList<String> survey_list = new ArrayList<String>();
+    private ArrayList<String> survey_list_string = new ArrayList<String>();
+    private ArrayList<Survey> survey_arraylist = new ArrayList<Survey>();
 
 
 
@@ -58,27 +60,38 @@ public class Home extends AppCompatActivity {
 
 
         //ListView setup
-        test_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview,test_list);
-        testList = (ListView) findViewById(R.id.test_list_view);
-        testList.setAdapter(test_adapter);
-        testList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        test_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview, test_list_string);
+        testListView = (ListView) findViewById(R.id.test_list_view);
+        testListView.setAdapter(test_adapter);
+        testListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-        survey_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview,survey_list);
-        surveyList = (ListView) findViewById(R.id.survey_list_view);
-        surveyList.setAdapter(survey_adapter);
-        surveyList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        survey_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview, survey_list_string);
+        surveyListView = (ListView) findViewById(R.id.survey_list_view);
+        surveyListView.setAdapter(survey_adapter);
+        surveyListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         //Home page elements
         btnModify = (Button)findViewById(R.id.btn_modify);
         btnViewResults = (Button)findViewById(R.id.btn_view_results);
         btnTake = (Button)findViewById(R.id.btn_take);
 
+        btnModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(focusedOnSurvey)
+                    modifySurvey(focusedSurvey);
+                else
+                    modifyTest(focusedTest);
+            }
+        });
+
         //Loading tests
         tests.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String value= dataSnapshot.getKey();
-                test_list.add(value);
+                Test test = dataSnapshot.getValue(Test.class);
+                test_list_string.add(test.getName());
+                test_arraylist.add(test);
             }
 
             @Override
@@ -108,8 +121,9 @@ public class Home extends AppCompatActivity {
         surveys.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String value= dataSnapshot.getKey();
-                survey_list.add(value);
+                Survey survey = dataSnapshot.getValue(Survey.class);
+                survey_list_string.add(survey.getName());
+                survey_arraylist.add(survey);
             }
 
             @Override
@@ -134,22 +148,47 @@ public class Home extends AppCompatActivity {
         });
 
         //On click for Tests
-        testList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        testListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                surveyList.setItemChecked(-1, true);
+                surveyListView.setItemChecked(-1, true);
                 view.setSelected(true);
+                focusedTest = test_arraylist.get(position);
+                focusedOnSurvey = false;
+                Log.d("Clicked on test", ((Test) focusedTest).getName());
             }
         });
 
         //On click for Surveys
-        surveyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        surveyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                testList.setItemChecked(-1, true);
+                testListView.setItemChecked(-1, true);
                 view.setSelected(true);
+                focusedSurvey = survey_arraylist.get(position);
+                focusedOnSurvey = true;
+                Log.d("Clicked on survey", ((Survey) focusedSurvey).getName());
             }
         });
 
+
+
+    }
+
+    private void modifySurvey(Survey s){
+        Intent intent = new Intent(this, CreateSurveyActivity.class);
+
+        intent.putExtra("Survey", (Survey) focusedSurvey);
+
+        startActivity(intent);
+
+    }
+
+    private void modifyTest(Test t){
+        Intent intent = new Intent(this, CreateSurveyActivity.class);
+
+        intent.putExtra("Test", (Test) focusedTest);
+
+        startActivity(intent);
     }
 }
