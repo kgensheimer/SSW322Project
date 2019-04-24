@@ -276,6 +276,22 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void takeSurvey(Survey s){
+        Intent intent = new Intent(this, CreateSurveyActivity.class);
+
+        intent.putExtra("Survey", (Survey) focusedSurvey);
+
+        startActivity(intent);
+    }
+
+    private void takeTest(Test t){
+        Intent intent = new Intent(this, CreateTestActivity.class);
+
+        intent.putExtra("Test", (Test) focusedTest);
+
+        startActivity(intent);
+    }
+
 
     private void initListViewSurveys(){
         survey_adapter =  new ArrayAdapter<String>(this,R.layout.activity_listview, survey_list_string);

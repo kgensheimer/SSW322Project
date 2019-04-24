@@ -7,41 +7,54 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="643dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/takeMCQTextView"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="30sp" />
 
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="Choice1" />
+        <RadioGroup
+            android:id="@+id/takeMCQRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:layout_gravity="center">
 
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="Choice2" />
+            <RadioButton
+                android:id="@+id/takeMCQRadioChoice1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choice1" />
 
-        <RadioButton
-            android:id="@+id/radioButton5"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="Choice3" />
+            <RadioButton
+                android:id="@+id/takeMCQRadioChoice2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choice2" />
 
-        <RadioButton
-            android:id="@+id/radioButton6"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="Choice4" />
+            <RadioButton
+                android:id="@+id/takeMCQRadioChoice3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choice3" />
+
+            <RadioButton
+                android:id="@+id/takeMCQRadioChoice4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choice4" />
+
+        </RadioGroup>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
