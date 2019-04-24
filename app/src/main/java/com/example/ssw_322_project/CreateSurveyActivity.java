@@ -57,7 +57,7 @@ public class CreateSurveyActivity extends AppCompatActivity {
         survey = (Survey) intent.getSerializableExtra("Survey");
         String surveyName = null;
 
-        //if no survey was passed through/serialized
+        //if no test was passed through/serialized
         if (survey == null)
             survey = new Survey();
         else
@@ -452,7 +452,7 @@ public class CreateSurveyActivity extends AppCompatActivity {
     }
 
     /**
-     * Initializes/refreshes the recyclerview to update changes to the survey
+     * Initializes/refreshes the recyclerview to update changes to the test
      */
     private void initRecyclerView(){
         recyclerView = findViewById(R.id.recyclerview_questions_survey);

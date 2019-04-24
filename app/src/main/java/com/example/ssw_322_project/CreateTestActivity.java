@@ -497,7 +497,7 @@ public class CreateTestActivity extends AppCompatActivity {
     }
 
     /**
-     * Initializes/refreshes the recyclerview to update changes to the survey
+     * Initializes/refreshes the recyclerview to update changes to the test
      */
     private void initRecyclerView(){
         recyclerView = findViewById(R.id.recyclerview_questions_test);

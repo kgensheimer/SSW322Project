@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateSurveyTestButtons"></activity>
+        <activity android:name=".TakeTestActivity"></activity>
+        <activity android:name=".TakeSurveyActivity" />
+        <activity android:name=".CreateSurveyTestButtons" />
         <activity android:name=".LoadCreateButtons" />
         <activity android:name=".CreateSurveyActivity" />
         <activity android:name=".CreateTestActivity" />

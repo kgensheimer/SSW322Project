@@ -82,6 +82,16 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        btnTake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(focusedOnSurvey)
+                    takeSurvey(focusedSurvey);
+                else
+                    takeTest(focusedTest);
+            }
+        });
+
         //Loading tests
         tests.addChildEventListener(new ChildEventListener() {
             @Override
@@ -251,7 +261,7 @@ public class Home extends AppCompatActivity {
                 view.setSelected(true);
                 focusedSurvey = survey_arraylist.get(position);
                 focusedOnSurvey = true;
-                Log.d("Clicked on survey", ((Survey) focusedSurvey).getName());
+                Log.d("Clicked on test", ((Survey) focusedSurvey).getName());
             }
         });
 
@@ -277,7 +287,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void takeSurvey(Survey s){
-        Intent intent = new Intent(this, CreateSurveyActivity.class);
+        Intent intent = new Intent(this, TakeSurveyActivity.class);
 
         intent.putExtra("Survey", (Survey) focusedSurvey);
 
@@ -285,7 +295,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void takeTest(Test t){
-        Intent intent = new Intent(this, CreateTestActivity.class);
+        Intent intent = new Intent(this, TakeTestActivity.class);
 
         intent.putExtra("Test", (Test) focusedTest);
 
